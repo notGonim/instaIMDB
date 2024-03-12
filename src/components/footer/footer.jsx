@@ -1,11 +1,13 @@
-import React from 'react';
+import React from "react";
 
-const footer = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+const Footer = () => {
+  return (
+    <>
+      <footer className="bg-gray-800 text-white p-4 text-center">
+        <p>Copyright &copy; {new Date().getFullYear()} InstaMovie</p>
+      </footer>
+    </>
+  );
 };
 
-export default footer;
+export default Footer;
