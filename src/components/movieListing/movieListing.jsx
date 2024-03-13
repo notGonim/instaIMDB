@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectMovies } from "../../features/movies/movieSlice";
+import { Link } from "react-router-dom";
 
 const MovieListing = () => {
   const movies = useSelector(selectMovies);
@@ -8,7 +9,7 @@ const MovieListing = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       {movies.map((movie, index) => (
-        <div
+        <Link to={`/movie/${movie.imdbID}`} 
           key={movie.id || index}
           className="shadow-md rounded overflow-hidden bg-white transition transform hover:scale-105 duration-300 ease-in-out cursor-pointer"
         >
@@ -23,7 +24,7 @@ const MovieListing = () => {
             </h2>{" "}
             <p className="text-gray-600 text-sm">{movie.Year}</p>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

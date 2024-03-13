@@ -7,6 +7,9 @@ const initialState = {
     movies: [],
     totalResults: 0,
   },
+  movie: {
+    movie: {},
+  },
 };
 
 const movieSlice = createSlice({
@@ -39,6 +42,15 @@ const movieSlice = createSlice({
       .addCase(getAllShows.rejected, (state, action) => {
         state.movies.movies = [];
         state.movies.totalResults = 0;
+      })
+      .addCase(getMovieById.pending, (state, action) => {
+        state.movie.movie = {};
+      })
+      .addCase(getMovieById.fulfilled, (state, action) => {
+        state.movie.movie = action.payload;
+      })
+      .addCase(getMovieById.rejected, (state, action) => {
+        state.movie.movie = {};
       });
   },
 });
@@ -63,5 +75,17 @@ export const getAllShows = createAsyncThunk(
   }
 );
 
+export const getMovieById = createAsyncThunk(
+  "movies/getMovieById",
+  async (payload) => {
+    console.log("Payload: ", payload);
+    const res = await movieAPI
+      .get(`?apikey=${API_KEY}&i=${payload.id}&plot=full`)
+      .catch((err) => console.log("Error: ", err));
+    return res.data;
+  }
+);
+
 export const selectMovies = (state) => state.movies.movies.movies;
+export const selectMovie = (state) => state.movies.movie.movie;
 export default movieSlice.reducer;
